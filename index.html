@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* CSS for Calculator Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f1f1f1;
+        }
+
+        .calculator {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .screen {
+            grid-column: 1 / span 4;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+        }
+
+        input {
+            width: 100%;
+            border: none;
+            background-color: #444;
+            color: #fff;
+            font-size: 24px;
+            padding: 5px 10px;
+        }
+
+        button {
+            border: none;
+            background-color: #555;
+            color: #fff;
+            font-size: 20px;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #777;
+        }
+
+        .operator {
+            background-color: #ff9900;
+            color: #222;
+        }
+    </style>
+    <title>Basic Calculator</title>
+</head>
+<body>
+    <div class="calculator">
+        <div class="screen">
+            <input type="text" id="display" disabled>
+        </div>
+        <div class="buttons">
+            <button class="operator" id="clear">C</button>
+            <button class="operator" id="backspace">←</button>
+            <button class="operator" id="divide">/</button>
+            <button id="7">7</button>
+            <button id="8">8</button>
+            <button id="9">9</button>
+            <button class="operator" id="multiply">*</button>
+            <button id="4">4</button>
+            <button id="5">5</button>
+            <button id="6">6</button>
+            <button class="operator" id="subtract">-</button>
+            <button id="1">1</button>
+            <button id="2">2</button>
+            <button id="3">3</button>
+            <button class="operator" id="add">+</button>
+            <button id="0">0</button>
+            <button id="decimal">.</button>
+            <button class="operator" id="equals">=</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const display = document.getElementById("display");
+            const buttons = document.querySelectorAll("button");
+
+            let input = "";
+            let result = "";
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const value = button.textContent;
+
+                    if (value === "C") {
+                        // Clear the input
+                        input = "";
+                        result = "";
+                    } else if (value === "←") {
+                        // Backspace
+                        input = input.slice(0, -1);
+                    } else if (value === "=") {
+                        // Calculate the result
+                        try {
+                            result = eval(input);
+                        } catch (error) {
+                            result = "Error";
+                        }
+                    } else {
+                        // Append the value to the input
+                        input += value;
+                    }
+
+                    display.value = result === "" ? input : result;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
